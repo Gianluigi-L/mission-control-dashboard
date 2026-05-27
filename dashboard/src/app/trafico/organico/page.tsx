@@ -379,7 +379,10 @@ export default function TraficoOrganicoPage() {
                   </thead>
                   <tbody>
                     {data.topPages.slice((pagesPage - 1) * itemsPerPage, pagesPage * itemsPerPage).map((p, i) => {
-                      const shortUrl = p.page.replace('https://gsmpro.cl', '').replace('https://www.gsmpro.cl', '');
+                      let shortUrl = p.page;
+                      try {
+                        shortUrl = new URL(p.page).pathname;
+                      } catch(e) {}
                       return (
                         <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                           <td className="px-4 py-3 font-medium text-zinc-200 truncate max-w-[280px]" title={p.page}>
